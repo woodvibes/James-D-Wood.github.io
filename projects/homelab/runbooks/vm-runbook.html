@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">VM Initial Set Up | james.codes</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://james.codes/projects/homelab/runbooks/vm-runbook"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-projects-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-projects-current"><meta data-rh="true" property="og:title" content="VM Initial Set Up | james.codes"><meta data-rh="true" name="description" content="Overview"><meta data-rh="true" property="og:description" content="Overview"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://james.codes/projects/homelab/runbooks/vm-runbook"><link data-rh="true" rel="alternate" href="https://james.codes/projects/homelab/runbooks/vm-runbook" hreflang="en"><link data-rh="true" rel="alternate" href="https://james.codes/projects/homelab/runbooks/vm-runbook" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home Lab","item":"https://james.codes/projects/category/home-lab"},{"@type":"ListItem","position":2,"name":"Runbooks","item":"https://james.codes/projects/category/runbooks"},{"@type":"ListItem","position":3,"name":"VM Initial Set Up","item":"https://james.codes/projects/homelab/runbooks/vm-runbook"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="james.codes RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="james.codes Atom Feed"><link rel="stylesheet" href="/assets/css/styles.9a5dac64.css">
-<script src="/assets/js/runtime~main.2c3027ad.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.2d6d69ee.js" defer="defer"></script>
 <script src="/assets/js/main.3aa33475.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -18,24 +18,29 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="clone-proxmox-vm-template">Clone Proxmox VM Template<a href="#clone-proxmox-vm-template" class="hash-link" aria-label="Direct link to Clone Proxmox VM Template" title="Direct link to Clone Proxmox VM Template">​</a></h2>
 <ul>
 <li>Create <a href="https://pve.proxmox.com/wiki/VM_Templates_and_Clones" target="_blank" rel="noopener noreferrer">full clone of my 24.04 Ubuntu VM Template</a></li>
+<li>Get MAC address from the VM&#x27;s Hardware tab in Proxmox</li>
+<li>Set Static DHCP lease for the IP in router admin and reboot the service</li>
 <li>SSH into the new VM (keys should be copied in based on Cloud Init settings)</li>
 </ul>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#1A1D3B;--prism-color:#dadde1"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="background-color:#1A1D3B;color:#dadde1"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#dadde1"><span class="token plain">ssh ubuntu@{{ip}}</span><br></span></code></pre></div></div>
 <ul>
-<li>Get MAC Address</li>
-</ul>
-<div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#1A1D3B;--prism-color:#dadde1"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="background-color:#1A1D3B;color:#dadde1"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#dadde1"><span class="token plain">ip link show</span><br></span></code></pre></div></div>
-<ul>
-<li>Set Static DHCP lease for the IP in router admin and reboot the service</li>
 <li>Resize VM disk to need (see: <a href="/projects/homelab/runbooks/resize-vm-runbook">resize VM runbook</a>)</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="set-up-a-docker-service">Set Up a Docker Service<a href="#set-up-a-docker-service" class="hash-link" aria-label="Direct link to Set Up a Docker Service" title="Direct link to Set Up a Docker Service">​</a></h2>
+<ul>
 <li><a href="https://docs.docker.com/engine/install/ubuntu/" target="_blank" rel="noopener noreferrer">Install docker</a></li>
-<li>Set up repo in home dir with README and docker compose</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="set-up-repo-to-track-config">Set Up Repo to Track Config<a href="#set-up-repo-to-track-config" class="hash-link" aria-label="Direct link to Set Up Repo to Track Config" title="Direct link to Set Up Repo to Track Config">​</a></h3>
+<ul>
+<li>Create repo in GitLab</li>
+<li>Create SSH key and add to GitLab</li>
+<li>Clone the repo to home dir</li>
+<li>Update README, config files and docker compose</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="todo">TODO<a href="#todo" class="hash-link" aria-label="Direct link to TODO" title="Direct link to TODO">​</a></h2>
 <ul>
-<li>Learn the proper way to set a static IP</li>
 <li>Include docker in the template VM</li>
 <li>Learn Ansible / Terraform to automate provisioning/configuration</li>
-</ul></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/projects/homelab/runbooks/resize-vm-runbook"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Resize Proxmox VM</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/projects/category/recipe-app"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Recipe App</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#clone-proxmox-vm-template" class="table-of-contents__link toc-highlight">Clone Proxmox VM Template</a></li><li><a href="#todo" class="table-of-contents__link toc-highlight">TODO</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Developed (🪲🐞🐛's and all) by james.</div></div></div></footer></div>
+</ul></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/projects/homelab/runbooks/resize-vm-runbook"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Resize Proxmox VM</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/projects/category/recipe-app"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Recipe App</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#clone-proxmox-vm-template" class="table-of-contents__link toc-highlight">Clone Proxmox VM Template</a></li><li><a href="#set-up-a-docker-service" class="table-of-contents__link toc-highlight">Set Up a Docker Service</a><ul><li><a href="#set-up-repo-to-track-config" class="table-of-contents__link toc-highlight">Set Up Repo to Track Config</a></li></ul></li><li><a href="#todo" class="table-of-contents__link toc-highlight">TODO</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Developed (🪲🐞🐛's and all) by james.</div></div></div></footer></div>
 </body>
 </html>
